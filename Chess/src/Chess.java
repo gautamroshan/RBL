@@ -12,20 +12,31 @@ public class Chess{
 		String command = input.nextLine();
 		if(command.equals("i")){
 			System.out.println(instruction());
+			System.out.println("Type and Enter (s) to start the game now or (e) to exit");
+			command = input.next();
 		}
-		else if(command.equals("e")){
+		if(command.equals("e")){
 			System.out.println("Thanks for your visit!");
 			System.exit(0);
+			
 		}
-		else if(command.equals("s")){
+		if(command.equals("s")){
 		starter(ChessBoard);
 		showBoard(ChessBoard);
-		}
 		System.out.println("Enter row and column separated by a space to select a piece");
+		
 		int row1 = Integer.parseInt(input.next());
 		int column1 = Integer.parseInt(input.next());
-		System.out.println("The row and column separated by a space are "+ row1 +" "+column1);
+		while(BlankCheck(ChessBoard[row1][column1])){
+			System.out.println("The selected row is empty, please try again");
+			 row1 = Integer.parseInt(input.next());
+			 column1 = Integer.parseInt(input.next());
+		}
+			System.out.println(ChessBoard[row1][column1]+" is selected");
+			//"\nEnter row and column to move this piece"
+			System.out.println("Game is building!\nSee you soon! Thanks for trying");
 		
+		}
 	}
 	public static void starter(String chessBoard[][]){
 		
@@ -83,11 +94,19 @@ public class Chess{
 			System.out.println("|");
 		}
 	}
+	public static Boolean BlankCheck(String box){
+		Boolean checker=false;
+		if (box.equals(" ")){
+			checker=true;
+		}
+		
+		return checker;
+	}
 	public static String instruction(){
 		String set ="Player1 is Capital\nPlayer2 is small"
 				+ "\nK->king, Q->queen, B->bishop, N->knight, R->rook, P->pawn"
-				+ "\nEnter row and column to first select your piece"
-				+ "\nThen enter row and column to move selected piece to desired place";
+				+ "\nType row and column separated by space and press enter to select your piece"
+				+ "\nThen Type row and column separated by space and enter to move selected piece to desired place";
 		return set;
 	}
 	}
