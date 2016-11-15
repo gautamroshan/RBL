@@ -21,6 +21,10 @@ public class Chess{
 		starter(ChessBoard);
 		showBoard(ChessBoard);
 		}
+		System.out.println("Enter row and column separated by a space to select a piece");
+		int row1 = Integer.parseInt(input.next());
+		int column1 = Integer.parseInt(input.next());
+		System.out.println("The row and column separated by a space are "+ row1 +" "+column1);
 		
 	}
 	public static void starter(String chessBoard[][]){
