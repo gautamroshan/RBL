@@ -24,22 +24,70 @@ public class Chess{
 		starter(ChessBoard);
 		showBoard(ChessBoard);
 		System.out.println("Enter row and column separated by a space to select a piece");
+		// add a loop to play the game continuously
 		
-		int row1 = Integer.parseInt(input.next());
-		int column1 = Integer.parseInt(input.next());
-		while(BlankCheck(ChessBoard[row1][column1])){
+		int srow1 = Integer.parseInt(input.next());
+		int scolumn1 = Integer.parseInt(input.next());
+		while(BlankCheck(ChessBoard[srow1][scolumn1])){
 			System.out.println("The selected row is empty, please try again");
-			 row1 = Integer.parseInt(input.next());
-			 column1 = Integer.parseInt(input.next());
+			srow1 = Integer.parseInt(input.next());
+			scolumn1 = Integer.parseInt(input.next());
 		}
-			System.out.println(ChessBoard[row1][column1]+" is selected");
-			//"\nEnter row and column to move this piece"
-			System.out.println("Game is building!\nSee you soon! Thanks for trying");
+			System.out.println(ChessBoard[srow1][scolumn1]+" in ("+srow1+","+scolumn1+")"+" is selected\nEnter row and column to move this piece");
+			int drow1 = Integer.parseInt(input.next());
+			int dcolumn1 = Integer.parseInt(input.next());
+			// check the piece
+			// call the method to check eligibilty of the move
+			while (!checkMove(ChessBoard,srow1,scolumn1,drow1,dcolumn1)){
+				System.out.println("Illegal move! please try again");
+				drow1 = Integer.parseInt(input.next());
+				dcolumn1 = Integer.parseInt(input.next());
+			}
+			movePiece(ChessBoard,srow1,scolumn1,drow1,dcolumn1);
+			//add undo move method
+			}
+			
+				
+			
+			showBoard(ChessBoard);
+			
+		}
+	
+	public static boolean checkMove(String board[][],int srow,int scolumn, int drow, int dcolumn){
+		//This is a method for checking the validity of a move. 
+		//All legal* methods are checked in this method to continue on game or to ask user to re-enter drow and dcolumn
+		boolean Check=false;
+		if(legalPawn(board, srow, scolumn,  drow,  dcolumn)){
+		//add other legal methods as
+		//if(legalPawn(....) || legalRook(...) || legalKnight(...) || ... ... {
+			Check =true;
+		}
+		return Check;
 		
+	}
+	public static boolean legalPawn(String board[][],int srow,int scolumn, int drow, int dcolumn){
+		boolean checker = false;
+		if((board[srow][scolumn].equals("P"))){
+			if((board[srow+1][scolumn].equals(" "))&&(drow==srow+1)&&( dcolumn==scolumn)){
+				checker = true;
+			}
 		}
+		else if((board[srow][scolumn].equals("p"))){
+			if((board[srow-1][scolumn].equals(" "))&&(drow==srow-1)&&( dcolumn==scolumn)){
+				checker = true;
+			}
+		// &&(drow==srow+1 || drow==srow-1)&&( dcolumn==scolumn || dcolumn==scolumn+1 ||dcolumn==scolumn-1)){
+			//if(board[srow+1][scolumn+1].equals(" "))
+			//if()
+		}
+		return checker;
+	}
+	public static void movePiece(String chessBoard[][],int srow,int scolumn, int drow, int dcolumn){
+		chessBoard[drow][dcolumn]=chessBoard[srow][scolumn];
+		chessBoard[srow][scolumn]=" ";
+		
 	}
 	public static void starter(String chessBoard[][]){
-		
 		String King1 = "K";
 		String King2 = "k";
 		String Queen1 = "Q";
