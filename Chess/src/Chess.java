@@ -1,3 +1,4 @@
+//Game is still long way to go.
 import java.util.Scanner;
 public class Chess{
 	public static void main(String[]args){
@@ -44,6 +45,7 @@ public class Chess{
 			}
 			movePiece(ChessBoard,srow1,scolumn1,drow1,dcolumn1);
 			//add undo move method
+			//very Important!
 			
 				
 			
@@ -84,14 +86,13 @@ public class Chess{
 		
 	}
 	public static boolean legalPawn(String board[][],int srow,int scolumn, int drow, int dcolumn){
-		// Worked on basic steps for Pawn. Game is still long way to go.
+		
 		boolean checker = false;
 		if((board[srow][scolumn].equals("P"))){
 			if((board[srow+1][scolumn].equals(" "))&&(drow==srow+1)&&( dcolumn==scolumn)){
 				checker = true;
 			}
 			else if(((srow+1)==drow) && ((scolumn-1)==dcolumn)){
-				//Replacement applied! 
 				if(isPlayer2(board[srow+1][scolumn-1]))checker=true;
 			}
 			else if(((srow+1)==drow) && ((scolumn+1)==dcolumn)  ){
@@ -116,31 +117,51 @@ public class Chess{
 		boolean checker = false;
 		if((board[srow][scolumn].equals("R"))){
 			int count=0;
-			// works for -X and -Y axis movement of the rook
+			//Move R in -Y direction
 			if((scolumn==dcolumn)&&((drow-srow)>0)){
 				for(int i=srow; i<=drow; i++){
 					if (board[i][dcolumn].equals(" ")){
 					count++;
 					}
 				}
-				if (((count==drow-srow)&&(isPlayer2(board[drow][dcolumn])))||((count==drow-srow-1)&&(isPlayer2(board[drow][dcolumn])))){
+				if (((count==drow-srow-1)||(count==drow-srow))&&(isPlayer2(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
 				checker=true;
 				}
 			}
+			//Move R in +Y direction
+			if((scolumn==dcolumn)&&((drow-srow)<0)){
+				for(int i=srow; i>=drow; i--){
+					if (board[i][dcolumn].equals(" ")){
+					count++;
+					}
+				}
+				if (((count==srow-drow-1)||(count ==srow-drow))&&(isPlayer2(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
+				checker=true;
+				}
+			}
+			//Move R in -X direction
 			if((srow==drow)&&((dcolumn-scolumn)<0)){
 				for(int i=scolumn; i>=dcolumn; i--){
 					if (board[drow][i].equals(" ")){
 					count++;
 					}
 				}
-				if (((count==scolumn-dcolumn)&&(isPlayer2(board[drow][dcolumn])))||((count==scolumn-dcolumn-1)&&(isPlayer2(board[drow][dcolumn])))){
+				if (((count==scolumn-dcolumn-1)||(count==scolumn-dcolumn))&&(isPlayer2(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
 				checker=true;
 				}
 			}
-			//two similar if statements necessary to move the rook in X and Y axis
-			//All the movements for player2 are also needed to be added
-			
-			
+			//Move R in +X direction
+			if((srow==drow)&&((dcolumn-scolumn)>0)){
+				for(int i=scolumn; i<=dcolumn; i++){
+					if (board[drow][i].equals(" ")){
+					count++;
+					}
+				}
+				if (((count==dcolumn-scolumn-1)||(count==dcolumn-scolumn))&&(isPlayer2(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
+				checker=true;
+				}
+			}
+			//All the movements for player2 are to be added
 			
 		}
 		return checker;
@@ -148,7 +169,6 @@ public class Chess{
 	public static void movePiece(String chessBoard[][],int srow,int scolumn, int drow, int dcolumn){
 		chessBoard[drow][dcolumn]=chessBoard[srow][scolumn];
 		chessBoard[srow][scolumn]=" ";
-		
 	}
 	public static void starter(String chessBoard[][]){
 		String King1 = "K";
