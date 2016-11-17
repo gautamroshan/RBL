@@ -124,7 +124,7 @@ public class Chess{
 					count++;
 					}
 				}
-				if (((count==drow-srow-1)||(count==drow-srow))&&(isPlayer2(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
+				if ((count==drow-srow)&&(isPlayer2(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
 				checker=true;
 				}
 			}
@@ -135,7 +135,7 @@ public class Chess{
 					count++;
 					}
 				}
-				if (((count==srow-drow-1)||(count ==srow-drow))&&(isPlayer2(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
+				if ((count ==srow-drow)&&(isPlayer2(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
 				checker=true;
 				}
 			}
@@ -146,7 +146,7 @@ public class Chess{
 					count++;
 					}
 				}
-				if (((count==scolumn-dcolumn-1)||(count==scolumn-dcolumn))&&(isPlayer2(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
+				if ((count==scolumn-dcolumn)&&(isPlayer2(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
 				checker=true;
 				}
 			}
@@ -157,7 +157,7 @@ public class Chess{
 					count++;
 					}
 				}
-				if (((count==dcolumn-scolumn-1)||(count==dcolumn-scolumn))&&(isPlayer2(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
+				if ((count==dcolumn-scolumn)&&(isPlayer2(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
 				checker=true;
 				}
 			}
