@@ -17,22 +17,21 @@ public class Chess{
 		}
 		if(command.equals("e")){
 			System.out.println("Thanks for your visit!");
-			System.exit(0);
-			
+			System.exit(0);	
 		}
 		if(command.equals("s")){
 		starter(ChessBoard);
 		showBoard(ChessBoard);
+		String continuer ="";	
+	while(!continuer.equals("checkmate")){
 		System.out.println("Enter row and column separated by a space to select a piece");
-		// add a loop to play the game continuously
-		
 		int srow1 = Integer.parseInt(input.next());
 		int scolumn1 = Integer.parseInt(input.next());
 		while(BlankCheck(ChessBoard[srow1][scolumn1])){
 			System.out.println("The selected row is empty, please try again");
 			srow1 = Integer.parseInt(input.next());
 			scolumn1 = Integer.parseInt(input.next());
-		}
+			}
 			System.out.println(ChessBoard[srow1][scolumn1]+" in ("+srow1+","+scolumn1+")"+" is selected\nEnter row and column to move this piece");
 			int drow1 = Integer.parseInt(input.next());
 			int dcolumn1 = Integer.parseInt(input.next());
@@ -45,14 +44,33 @@ public class Chess{
 			}
 			movePiece(ChessBoard,srow1,scolumn1,drow1,dcolumn1);
 			//add undo move method
-			}
 			
 				
 			
 			showBoard(ChessBoard);
-			
 		}
-	
+		}
+	}
+	public static boolean isPlayer1(String piece){
+		String[] Player1={"P","R","B","K","Q","N"};
+		boolean check=false;
+		for (int i=0;i<Player1.length; i++){
+			if(piece.equals(Player1[i])){
+				check=true;
+			}	
+		}
+		return check;
+	}
+	public static boolean isPlayer2(String piece){
+		String[] Player2={"p","r","b","k","q","n"};
+		boolean check=false;
+		for (int i=0;i<Player2.length; i++){
+			if(piece.equals(Player2[i])){
+				check=true;
+			}	
+		}
+		return check;
+	}
 	public static boolean checkMove(String board[][],int srow,int scolumn, int drow, int dcolumn){
 		//This is a method for checking the validity of a move. 
 		//All legal* methods are checked in this method to continue on game or to ask user to re-enter drow and dcolumn
@@ -71,14 +89,28 @@ public class Chess{
 			if((board[srow+1][scolumn].equals(" "))&&(drow==srow+1)&&( dcolumn==scolumn)){
 				checker = true;
 			}
+			else if(((srow+1)>=0) && ((scolumn-1)>=0) && ((srow+1)<8) && ((scolumn-1)<8) && ((srow+1)==drow) && ((scolumn-1)==dcolumn)){
+				//This long, freaking sentence was used to remove Array indexoutofboundsexception error
+				//Replacement necessary!
+				
+				//Replacement found! drow has not been used to determine where next player is!
+				if(isPlayer2(board[srow+1][scolumn-1]))checker=true;
+			}
+			else if(  ((srow+1)>=0) && ((scolumn+1)>=0) && ((srow+1)<8) && ((scolumn+1)<8) && ((srow+1)==drow) && ((scolumn+1)==dcolumn)  ){
+				if(isPlayer2(board[srow+1][scolumn+1]))checker=true;
+			}
 		}
 		else if((board[srow][scolumn].equals("p"))){
 			if((board[srow-1][scolumn].equals(" "))&&(drow==srow-1)&&( dcolumn==scolumn)){
 				checker = true;
+				}
+			else if(((srow-1)>=0) && ((scolumn+1)>=0) && ((srow-1)<8) && ((scolumn+1)<8) && ((srow-1)==drow) && ((scolumn+1)==dcolumn)  ){
+				if(isPlayer1(board[srow-1][scolumn+1]))checker=true;
 			}
-		// &&(drow==srow+1 || drow==srow-1)&&( dcolumn==scolumn || dcolumn==scolumn+1 ||dcolumn==scolumn-1)){
-			//if(board[srow+1][scolumn+1].equals(" "))
-			//if()
+			else if(((srow-1)>=0) && ((scolumn-1)>=0) && ((srow-1)<8) && ((scolumn-1)<8) && ((srow-1)==drow) && ((scolumn-1)==dcolumn)){
+				if(isPlayer1(board[srow-1][scolumn-1]))checker=true;
+			}
+		
 		}
 		return checker;
 	}
