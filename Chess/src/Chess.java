@@ -75,7 +75,7 @@ public class Chess{
 		//This is a method for checking the validity of a move. 
 		//All legal* methods are checked in this method to continue on game or to ask user to re-enter drow and dcolumn
 		boolean Check=false;
-		if(legalPawn(board, srow, scolumn,  drow,  dcolumn)){
+		if(legalPawn(board, srow, scolumn,  drow,  dcolumn) || legalRook(board, srow, scolumn, drow, dcolumn)){
 		//add other legal methods as
 		//if(legalPawn(....) || legalRook(...) || legalKnight(...) || ... ... {
 			Check =true;
@@ -109,6 +109,39 @@ public class Chess{
 				if(isPlayer1(board[srow-1][scolumn-1]))checker=true;
 			}
 		
+		}
+		return checker;
+	}
+	public static boolean legalRook(String board[][],int srow,int scolumn,int drow,int dcolumn){
+		boolean checker = false;
+		if((board[srow][scolumn].equals("R"))){
+			int count=0;
+			// works for -X and -Y axis movement of the rook
+			if((scolumn==dcolumn)&&((drow-srow)>0)){
+				for(int i=srow; i<=drow; i++){
+					if (board[i][dcolumn].equals(" ")){
+					count++;
+					}
+				}
+				if (((count==drow-srow)&&(isPlayer2(board[drow][dcolumn])))||((count==drow-srow-1)&&(isPlayer2(board[drow][dcolumn])))){
+				checker=true;
+				}
+			}
+			if((srow==drow)&&((dcolumn-scolumn)<0)){
+				for(int i=scolumn; i>=dcolumn; i--){
+					if (board[drow][i].equals(" ")){
+					count++;
+					}
+				}
+				if (((count==scolumn-dcolumn)&&(isPlayer2(board[drow][dcolumn])))||((count==scolumn-dcolumn-1)&&(isPlayer2(board[drow][dcolumn])))){
+				checker=true;
+				}
+			}
+			//two similar if statements necessary to move the rook in X and Y axis
+			//All the movements for player2 are also needed to be added
+			
+			
+			
 		}
 		return checker;
 	}
