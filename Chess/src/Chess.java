@@ -84,19 +84,17 @@ public class Chess{
 		
 	}
 	public static boolean legalPawn(String board[][],int srow,int scolumn, int drow, int dcolumn){
+		// Worked on basic steps for Pawn. Game is still long way to go.
 		boolean checker = false;
 		if((board[srow][scolumn].equals("P"))){
 			if((board[srow+1][scolumn].equals(" "))&&(drow==srow+1)&&( dcolumn==scolumn)){
 				checker = true;
 			}
-			else if(((srow+1)>=0) && ((scolumn-1)>=0) && ((srow+1)<8) && ((scolumn-1)<8) && ((srow+1)==drow) && ((scolumn-1)==dcolumn)){
-				//This long, freaking sentence was used to remove Array indexoutofboundsexception error
-				//Replacement necessary!
-				
-				//Replacement found! drow has not been used to determine where next player is!
+			else if(((srow+1)==drow) && ((scolumn-1)==dcolumn)){
+				//Replacement applied! 
 				if(isPlayer2(board[srow+1][scolumn-1]))checker=true;
 			}
-			else if(  ((srow+1)>=0) && ((scolumn+1)>=0) && ((srow+1)<8) && ((scolumn+1)<8) && ((srow+1)==drow) && ((scolumn+1)==dcolumn)  ){
+			else if(((srow+1)==drow) && ((scolumn+1)==dcolumn)  ){
 				if(isPlayer2(board[srow+1][scolumn+1]))checker=true;
 			}
 		}
@@ -104,10 +102,10 @@ public class Chess{
 			if((board[srow-1][scolumn].equals(" "))&&(drow==srow-1)&&( dcolumn==scolumn)){
 				checker = true;
 				}
-			else if(((srow-1)>=0) && ((scolumn+1)>=0) && ((srow-1)<8) && ((scolumn+1)<8) && ((srow-1)==drow) && ((scolumn+1)==dcolumn)  ){
+			else if(((srow-1)==drow) && ((scolumn+1)==dcolumn)  ){
 				if(isPlayer1(board[srow-1][scolumn+1]))checker=true;
 			}
-			else if(((srow-1)>=0) && ((scolumn-1)>=0) && ((srow-1)<8) && ((scolumn-1)<8) && ((srow-1)==drow) && ((scolumn-1)==dcolumn)){
+			else if(((srow-1)==drow) && ((scolumn-1)==dcolumn)){
 				if(isPlayer1(board[srow-1][scolumn-1]))checker=true;
 			}
 		
