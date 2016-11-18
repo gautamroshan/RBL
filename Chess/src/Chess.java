@@ -141,7 +141,7 @@ public class Chess{
 	public static boolean legalRook(String board[][],int srow,int scolumn,int drow,int dcolumn){
 		//search for ways to shorten the code
 		boolean checker = false;
-		if((board[srow][scolumn].equals("R")||(board[srow][scolumn].equals("r")))){
+		if(board[srow][scolumn].equals("R")||board[srow][scolumn].equals("r") ||board[srow][scolumn].equals("Q")||board[srow][scolumn].equals("q")){
 			int count=0;
 			//Move R or r in -Y direction
 			if((scolumn==dcolumn)&&((drow-srow)>0)){
@@ -278,7 +278,7 @@ public class Chess{
 	
 	public static boolean legalBishop(String board[][],int srow,int scolumn,int drow,int dcolumn){
 		boolean checker=false;
-		if(board[srow][scolumn].equals("B")|| board[srow][scolumn].equals("b")){
+		if(board[srow][scolumn].equals("B")||board[srow][scolumn].equals("b")||board[srow][scolumn].equals("Q")|| board[srow][scolumn].equals("q")){
 			int count=0;
 			if((srow>drow)&&(scolumn>dcolumn)){
 				int j=scolumn;
