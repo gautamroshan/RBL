@@ -1,6 +1,5 @@
 //Game is still long way to go.
 //Things to do.
-//Add moves of pieces
 //Add Turn basis
 //checkmate
 
@@ -16,7 +15,7 @@ public class Chess{
 			}
 		}
 		Scanner input = new Scanner(System.in);
-		System.out.println("Type and Enter:\n(i) for instruction,\n(s) for starting the game,\n(e) for exit:");
+		System.out.println("Welcome to Chess! \nType and Enter:\n(i) for instruction,\n(s) for starting the game,\n(e) for exit:");
 		String command = input.nextLine();
 		if(command.equals("i")){
 			System.out.println(instruction());
@@ -96,7 +95,7 @@ public class Chess{
 		//This is a method for checking the validity of a move. 
 		//All legal* methods are checked in this method to continue on game or to ask user to re-enter drow and dcolumn
 		boolean Check=false;
-		if(legalPawn(board, srow, scolumn,  drow,  dcolumn) || legalRook(board, srow, scolumn, drow, dcolumn) || legalKnight(board, srow, scolumn, drow, dcolumn) || legalBishop(board, srow, scolumn, drow, dcolumn)){
+		if(legalPawn(board, srow, scolumn,  drow,  dcolumn) || legalRook(board, srow, scolumn, drow, dcolumn) || legalKnight(board, srow, scolumn, drow, dcolumn) || legalBishop(board, srow, scolumn, drow, dcolumn)||legalKing(board, srow, scolumn, drow, dcolumn)){
 		//add other legal methods as
 		//if(legalPawn(....) || ......|| legalKnight(...) || legalBishop(...) || legalQueen(...) ... {
 			Check =true;
@@ -334,13 +333,30 @@ public class Chess{
 			}
 			}	
 		return checker;
-		
-		
-		
-		
-		
 		}
-		
+	
+	
+	
+	
+	public static boolean legalKing(String board[][], int srow, int scolumn, int drow, int dcolumn){
+		boolean checker=false;
+			if (board[srow][scolumn].equals("K")||board[srow][scolumn].equals("k")){
+				for(int i=srow-1;i<=srow+1;i++){
+					for(int j=scolumn-1;j<=scolumn+1;j++){
+						if (drow==i && dcolumn==j){
+							if ((isPlayer1(board[srow][scolumn])) && (isPlayer2(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
+								checker=true;
+							}
+							else if ((isPlayer2(board[srow][scolumn])) && (isPlayer1(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
+								checker=true;
+							}
+						}
+					}
+				}
+				
+			}
+		return checker;
+	}
 	
 	
 	public static void movePiece(String chessBoard[][],int srow,int scolumn, int drow, int dcolumn){
@@ -407,7 +423,6 @@ public class Chess{
 			System.out.println("|");
 		}
 	}
-	
 	
 	
 	
