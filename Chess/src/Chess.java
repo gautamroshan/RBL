@@ -96,7 +96,7 @@ public class Chess{
 		//This is a method for checking the validity of a move. 
 		//All legal* methods are checked in this method to continue on game or to ask user to re-enter drow and dcolumn
 		boolean Check=false;
-		if(legalPawn(board, srow, scolumn,  drow,  dcolumn) || legalRook(board, srow, scolumn, drow, dcolumn) || legalKnight(board, srow, scolumn, drow, dcolumn)){
+		if(legalPawn(board, srow, scolumn,  drow,  dcolumn) || legalRook(board, srow, scolumn, drow, dcolumn) || legalKnight(board, srow, scolumn, drow, dcolumn) || legalBishop(board, srow, scolumn, drow, dcolumn)){
 		//add other legal methods as
 		//if(legalPawn(....) || ......|| legalKnight(...) || legalBishop(...) || legalQueen(...) ... {
 			Check =true;
@@ -149,12 +149,12 @@ public class Chess{
 					if (board[i][dcolumn].equals(" ")){
 					count++;
 					}
-					if(isPlayer2(board[i][dcolumn])&&isPlayer1(board[srow][scolumn])){
-						count++;
-					}
-					else if(isPlayer1(board[i][dcolumn])&&isPlayer2(board[srow][scolumn])){
-						count++;
-					}
+				}
+				if(isPlayer2(board[drow][dcolumn])&&isPlayer1(board[srow][scolumn])){
+					count++;
+				}
+				else if(isPlayer1(board[drow][dcolumn])&&isPlayer2(board[srow][scolumn])){
+					count++;
 				}
 				if ((count==drow-srow)&&(isPlayer1(board[srow][scolumn])) && (isPlayer2(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
 				checker=true;
@@ -170,12 +170,12 @@ public class Chess{
 					if (board[i][dcolumn].equals(" ")){
 					count++;
 					}
-					if(isPlayer2(board[i][dcolumn])&&isPlayer1(board[srow][scolumn])){
-						count++;
-					}
-					else if(isPlayer1(board[i][dcolumn])&&isPlayer2(board[srow][scolumn])){
-						count++;
-					}
+				}
+				if(isPlayer2(board[drow][dcolumn])&&isPlayer1(board[srow][scolumn])){
+					count++;
+				}
+				else if(isPlayer1(board[drow][dcolumn])&&isPlayer2(board[srow][scolumn])){
+					count++;
 				}
 				if ((count ==srow-drow)&& (isPlayer1(board[srow][scolumn])) && (isPlayer2(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
 				checker=true;
@@ -190,12 +190,12 @@ public class Chess{
 					if (board[drow][i].equals(" ")){
 					count++;
 					}
-					if(isPlayer2(board[drow][i])&&isPlayer1(board[srow][scolumn])){
-						count++;
-					}
-					else if(isPlayer1(board[drow][i])&&isPlayer2(board[srow][scolumn])){
-						count++;
-					}
+				}
+				if(isPlayer2(board[drow][dcolumn])&&isPlayer1(board[srow][scolumn])){
+					count++;
+				}
+				else if(isPlayer1(board[drow][dcolumn])&&isPlayer2(board[srow][scolumn])){
+					count++;
 				}
 				if ((count==scolumn-dcolumn)&&(isPlayer1(board[srow][scolumn]))&&(isPlayer2(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
 				checker=true;
@@ -210,13 +210,13 @@ public class Chess{
 					if (board[drow][i].equals(" ")){
 					count++;
 					}
-					if(isPlayer2(board[drow][i])&&isPlayer1(board[srow][scolumn])){
-						count++;
-					}
-					else if(isPlayer1(board[drow][i])&&isPlayer2(board[srow][scolumn])){
-						count++;
-					}
 				}
+					if(isPlayer2(board[drow][dcolumn])&&isPlayer1(board[srow][scolumn])){
+						count++;
+					}
+					else if(isPlayer1(board[drow][dcolumn])&&isPlayer2(board[srow][scolumn])){
+						count++;
+					}
 				if ((count==dcolumn-scolumn)&&(isPlayer1(board[srow][scolumn]))&&(isPlayer2(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
 				checker=true;
 				}
@@ -225,7 +225,7 @@ public class Chess{
 					}
 				//try this method in the first if statement to check the conditions so that you dont need to repeat it again and again
 			}
-			//All the movements for player2 are to be added
+			
 			
 		}
 		return checker;
@@ -275,6 +275,72 @@ public class Chess{
 		
 	}
 	
+	
+	public static boolean legalBishop(String board[][],int srow,int scolumn,int drow,int dcolumn){
+		boolean checker=false;
+		if(board[srow][scolumn].equals("B")|| board[srow][scolumn].equals("b")){
+			int count=0;
+			if((srow>drow)&&(scolumn>dcolumn)){
+				int j=scolumn;
+			for(int i=srow; i>=drow;i--){
+					if(board[i][j].equals(" ")){
+						count++;
+					}
+					j--;
+				}
+			}
+			else if((srow>drow)&&(scolumn<dcolumn)){
+				int j=scolumn;
+			for(int i=srow; i>=drow;i--){
+				if(board[i][j].equals(" ")){
+					count++;
+				}
+				j++;
+			}
+			}
+			
+			
+			
+			else if((srow<drow)&&(scolumn>dcolumn)){
+				int j=scolumn;
+			for(int i=srow; i<=drow;i++){
+					if (board[i][j].equals(" ")){
+						count++;
+					}
+					j--;
+			}
+			}
+			else if((srow<drow)&&(scolumn<dcolumn)){
+				int j=scolumn;
+			for(int i=srow; i<=drow;i++){
+					if (board[i][j].equals(" ")){
+						count++;
+					}
+					j++;
+			}
+			}
+			
+				if(isPlayer2(board[drow][dcolumn])&&isPlayer1(board[srow][scolumn])){
+					count++;
+				}
+				else if(isPlayer1(board[drow][dcolumn])&&isPlayer2(board[srow][scolumn])){
+					count++;
+				}
+			if (((count==srow-drow)||(count==drow-srow)) &&(isPlayer1(board[srow][scolumn])) && (isPlayer2(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
+				checker=true;
+			}
+			else if (((count==srow-drow)||(count==drow-srow))&&(isPlayer2(board[srow][scolumn])) && (isPlayer1(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
+				checker=true;
+			}
+			}	
+		return checker;
+		
+		
+		
+		
+		
+		}
+		
 	
 	
 	public static void movePiece(String chessBoard[][],int srow,int scolumn, int drow, int dcolumn){
