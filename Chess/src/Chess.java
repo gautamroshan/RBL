@@ -1,6 +1,4 @@
-//Game is still long way to go.
 //Things to do.
-//Add Turn basis
 //checkmate
 
 import java.util.Scanner;
@@ -17,6 +15,8 @@ public class Chess{
 		Scanner input = new Scanner(System.in);
 		System.out.println("Welcome to Chess! \nType and Enter:\n(i) for instruction,\n(s) for starting the game,\n(e) for exit:");
 		String command = input.nextLine();
+		
+		
 		if(command.equals("i")){
 			System.out.println(instruction());
 			System.out.println("Type and Enter (s) to start the game now or (e) to exit");
@@ -30,34 +30,55 @@ public class Chess{
 		starter(ChessBoard);
 		showBoard(ChessBoard);
 		String continuer ="";	
+		
+		
+		int turnCounter=0;
+		int currentPlayer;
 		//Add turns for player1 and player2
 	while(!continuer.equals("checkmate")){
+		if(turnCounter%2==0)currentPlayer=1; else  currentPlayer=2;
+		if(currentPlayer==1)System.out.println("Player 1"); else System.out.println("Player 2");
 		System.out.println("Enter row and column separated by a space to select a piece");
-		int srow1 = Integer.parseInt(input.next());
-		int scolumn1 = Integer.parseInt(input.next());
-		while(BlankCheck(ChessBoard[srow1][scolumn1])){
+		int srow = Integer.parseInt(input.next());
+		int scolumn = Integer.parseInt(input.next());
+		while(BlankCheck(ChessBoard[srow][scolumn])){
 			System.out.println("The selection is empty, please try again");
-			srow1 = Integer.parseInt(input.next());
-			scolumn1 = Integer.parseInt(input.next());
+			srow = Integer.parseInt(input.next());
+			scolumn = Integer.parseInt(input.next());
 			}
-			System.out.println(ChessBoard[srow1][scolumn1]+" in ("+srow1+","+scolumn1+")"+" is selected\nEnter row and column to move this piece");
-			int drow1 = Integer.parseInt(input.next());
-			int dcolumn1 = Integer.parseInt(input.next());
-			//Add a method to unselect the piece and reselect it.
-			// check the piece
-			// call the method to check eligibility of the move
-			while (!checkMove(ChessBoard,srow1,scolumn1,drow1,dcolumn1)){
+		if(currentPlayer==1&&isPlayer2(ChessBoard[srow][scolumn])){
+			while (!isPlayer1(ChessBoard[srow][scolumn])){
+				if(BlankCheck(ChessBoard[srow][scolumn]))System.out.println("The selection is empty, please try again");
+				else System.out.println("You selected Player 2! Please try again and select Player1");
+				srow = Integer.parseInt(input.next());
+				scolumn = Integer.parseInt(input.next());
+			}
+		}
+		else if(currentPlayer==2&&isPlayer1(ChessBoard[srow][scolumn])){
+			while (!isPlayer2(ChessBoard[srow][scolumn])){
+				if(BlankCheck(ChessBoard[srow][scolumn]))System.out.println("The selection is empty, please try again");
+			else System.out.println("You selected Player 1! Please try again and select Player2");
+				srow = Integer.parseInt(input.next());
+				scolumn = Integer.parseInt(input.next());
+			}
+		}
+		
+			System.out.println(ChessBoard[srow][scolumn]+" in ("+srow+","+scolumn+")"+" is selected\nEnter row and column to move this piece");
+			int drow = Integer.parseInt(input.next());
+			int dcolumn = Integer.parseInt(input.next());
+			while (!checkMove(ChessBoard,srow,scolumn,drow,dcolumn)){
 				System.out.println("Illegal move! please try again");
-				drow1 = Integer.parseInt(input.next());
-				dcolumn1 = Integer.parseInt(input.next());
+				drow = Integer.parseInt(input.next());
+				dcolumn = Integer.parseInt(input.next());
 			}
-			movePiece(ChessBoard,srow1,scolumn1,drow1,dcolumn1);
+			movePiece(ChessBoard,srow,scolumn,drow,dcolumn);
 			//add undo move method
 			//very Important!
 			
 				
 			
 			showBoard(ChessBoard);
+			turnCounter++;
 		}
 		}
 	}
@@ -93,15 +114,11 @@ public class Chess{
 	
 	public static boolean checkMove(String board[][],int srow,int scolumn, int drow, int dcolumn){
 		//This is a method for checking the validity of a move. 
-		//All legal* methods are checked in this method to continue on game or to ask user to re-enter drow and dcolumn
 		boolean Check=false;
 		if(legalPawn(board, srow, scolumn,  drow,  dcolumn) || legalRook(board, srow, scolumn, drow, dcolumn) || legalKnight(board, srow, scolumn, drow, dcolumn) || legalBishop(board, srow, scolumn, drow, dcolumn)||legalKing(board, srow, scolumn, drow, dcolumn)){
-		//add other legal methods as
-		//if(legalPawn(....) || ......|| legalKnight(...) || legalBishop(...) || legalQueen(...) ... {
 			Check =true;
 		}
-		return Check;
-		
+		return Check;	
 	}
 	
 	
@@ -443,5 +460,6 @@ public class Chess{
 				+ "\nThen Type row and column separated by space and enter to move selected piece to desired place";
 		return set;
 	}
-	
-}
+
+		
+	}
