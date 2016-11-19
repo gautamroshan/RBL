@@ -1,4 +1,5 @@
 //Things to do.
+//pawn's method for starting
 //checkmate
 
 import java.util.Scanner;
@@ -33,11 +34,12 @@ public class Chess{
 		
 		
 		int turnCounter=0;
-		int currentPlayer;
+		int currentPlayer=1;
 		//Add turns for player1 and player2
-	while(!continuer.equals("checkmate")){
+	while(!continuer.equals("Game Over")){
 		if(turnCounter%2==0)currentPlayer=1; else  currentPlayer=2;
 		if(currentPlayer==1)System.out.println("Player 1"); else System.out.println("Player 2");
+		if(checkMate(ChessBoard))System.out.println("CheckMate!");
 		System.out.println("Enter row and column separated by a space to select a piece");
 		int srow = Integer.parseInt(input.next());
 		int scolumn = Integer.parseInt(input.next());
@@ -78,12 +80,21 @@ public class Chess{
 				
 			
 			showBoard(ChessBoard);
+			int count=0;
+			for(int i=0; i<8; i++){
+				for (int j=0; j<8; j++){
+					if (ChessBoard[i][j].equals("k")||ChessBoard[i][j].equals("K")){
+						count++;
+					}
+				}
+			}
+			if (count!=2)continuer="Game Over";
 			turnCounter++;
+			
 		}
+		System.out.println(continuer+"\nPlayer"+ currentPlayer+" wins!\nThanks for playing!");
 		}
 	}
-	
-	
 	
 	
 	public static boolean isPlayer1(String piece){
@@ -115,7 +126,7 @@ public class Chess{
 	public static boolean checkMove(String board[][],int srow,int scolumn, int drow, int dcolumn){
 		//This is a method for checking the validity of a move. 
 		boolean Check=false;
-		if(legalPawn(board, srow, scolumn,  drow,  dcolumn) || legalRook(board, srow, scolumn, drow, dcolumn) || legalKnight(board, srow, scolumn, drow, dcolumn) || legalBishop(board, srow, scolumn, drow, dcolumn)||legalKing(board, srow, scolumn, drow, dcolumn)){
+		if(legalPawn(board, srow, scolumn,  drow,  dcolumn) || legalRook(board, srow, scolumn, drow, dcolumn) || legalKnight(board, srow, scolumn, drow, dcolumn) || legalBishop(board, srow, scolumn, drow, dcolumn) || legalKing(board, srow, scolumn, drow, dcolumn)){
 			Check =true;
 		}
 		return Check;	
@@ -125,6 +136,7 @@ public class Chess{
 	
 	public static boolean legalPawn(String board[][],int srow,int scolumn, int drow, int dcolumn){	
 		//search for ways to shorten the code
+		//bugs encountered
 		boolean checker = false;
 		if((board[srow][scolumn].equals("P"))){
 			if((board[srow+1][scolumn].equals(" "))&&(drow==srow+1)&&( dcolumn==scolumn)){
@@ -293,6 +305,7 @@ public class Chess{
 	
 	
 	public static boolean legalBishop(String board[][],int srow,int scolumn,int drow,int dcolumn){
+		// bugs encountered, 
 		boolean checker=false;
 		if(board[srow][scolumn].equals("B")||board[srow][scolumn].equals("b")||board[srow][scolumn].equals("Q")|| board[srow][scolumn].equals("q")){
 			int count=0;
@@ -354,7 +367,6 @@ public class Chess{
 	
 	
 	
-	
 	public static boolean legalKing(String board[][], int srow, int scolumn, int drow, int dcolumn){
 		boolean checker=false;
 			if (board[srow][scolumn].equals("K")||board[srow][scolumn].equals("k")){
@@ -373,6 +385,27 @@ public class Chess{
 				
 			}
 		return checker;
+	}
+	
+	public static boolean checkMate(String board[][]){
+		boolean checkmate=false;
+		for (int dr=0; dr<8; dr++){
+			for (int dc=0; dc<8; dc++){
+				if (board[dr][dc].equals("K")||board[dr][dc].equals("k")){
+					for (int sr=0; sr<8; sr++){
+						for (int sc=0; sc<8; sc++){
+							if(checkMove(board, sr, sc, dr,dc)){
+								checkmate = true;
+							}
+							
+						}
+					}
+				}
+					
+				}
+			}
+		
+		return checkmate;
 	}
 	
 	
@@ -450,7 +483,6 @@ public class Chess{
 		}
 		return checker;
 	}
-	
 	
 	
 	public static String instruction(){
