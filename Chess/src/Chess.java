@@ -1,6 +1,5 @@
 //Things to do.
-//pawn's method for starting
-//checkmate
+//pawn's move for starting and ending
 
 import java.util.Scanner;
 public class Chess{
@@ -123,6 +122,16 @@ public class Chess{
 	
 	
 	
+	public static Boolean BlankCheck(String box){
+		Boolean checker=false;
+		if (box.equals(" ")){
+			checker=true;
+		}
+		return checker;
+	}
+	
+	
+	
 	public static boolean checkMove(String board[][],int srow,int scolumn, int drow, int dcolumn){
 		//This is a method for checking the validity of a move. 
 		boolean Check=false;
@@ -148,6 +157,9 @@ public class Chess{
 			else if(((srow+1)==drow) && ((scolumn+1)==dcolumn)  ){
 				if(isPlayer2(board[srow+1][scolumn+1]))checker=true;
 			}
+			else if(board[3][scolumn].equals(" ") && board[2][scolumn].equals(" ") && (srow==1) && (drow==3) && (dcolumn==scolumn)){
+				checker=true;
+			}
 		}
 		else if((board[srow][scolumn].equals("p"))){
 			if((board[srow-1][scolumn].equals(" "))&&(drow==srow-1)&&( dcolumn==scolumn)){
@@ -158,11 +170,13 @@ public class Chess{
 			}
 			else if(((srow-1)==drow) && ((scolumn-1)==dcolumn)){
 				if(isPlayer1(board[srow-1][scolumn-1]))checker=true;
-			}		
+			}
+			else if(board[4][scolumn].equals(" ")&& board[5][scolumn].equals(" ") && (srow==6) && (drow==4) && dcolumn==scolumn){
+				checker=true;
+			}
 		}
 		return checker;
 	}
-	
 	
 	
 	
@@ -304,6 +318,7 @@ public class Chess{
 	}
 	
 	
+	
 	public static boolean legalBishop(String board[][],int srow,int scolumn,int drow,int dcolumn){
 	  boolean checker=false;
 	  if ((Math.abs(drow-srow)==Math.abs(scolumn-dcolumn))){
@@ -389,6 +404,8 @@ public class Chess{
 		return checker;
 	}
 	
+	
+	
 	public static boolean checkMate(String board[][]){
 		boolean checkmate=false;
 		for (int dr=0; dr<8; dr++){
@@ -409,6 +426,7 @@ public class Chess{
 		
 		return checkmate;
 	}
+	
 	
 	
 	public static void movePiece(String chessBoard[][],int srow,int scolumn, int drow, int dcolumn){
@@ -476,15 +494,6 @@ public class Chess{
 		}
 	}
 	
-	
-	
-	public static Boolean BlankCheck(String box){
-		Boolean checker=false;
-		if (box.equals(" ")){
-			checker=true;
-		}
-		return checker;
-	}
 	
 	
 	public static String instruction(){
