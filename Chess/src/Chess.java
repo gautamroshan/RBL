@@ -305,8 +305,9 @@ public class Chess{
 	
 	
 	public static boolean legalBishop(String board[][],int srow,int scolumn,int drow,int dcolumn){
-		// bugs encountered, 
-		boolean checker=false;
+	  boolean checker=false;
+	  if ((Math.abs(drow-srow)==Math.abs(scolumn-dcolumn))){
+		  //Added new line to debug
 		if(board[srow][scolumn].equals("B")||board[srow][scolumn].equals("b")||board[srow][scolumn].equals("Q")|| board[srow][scolumn].equals("q")){
 			int count=0;
 			if((srow>drow)&&(scolumn>dcolumn)){
@@ -361,7 +362,8 @@ public class Chess{
 			else if (((count==srow-drow)||(count==drow-srow))&&(isPlayer2(board[srow][scolumn])) && (isPlayer1(board[drow][dcolumn])||board[drow][dcolumn].equals(" "))){
 				checker=true;
 			}
-			}	
+			}
+	  }
 		return checker;
 		}
 	
