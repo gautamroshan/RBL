@@ -1,5 +1,5 @@
 //Things to do.
-//pawn's move for starting and ending
+//Almost done,except for few bugs in pawn
 
 import java.util.Scanner;
 public class Chess{
@@ -79,6 +79,29 @@ public class Chess{
 				
 			
 			showBoard(ChessBoard);
+			if(checkPawn(ChessBoard)){
+				System.out.println("Choose a Piece");
+				if(currentPlayer==1){
+					System.out.println("R, N, B, Q");
+					String piece=input.next();
+					while(!isPlayer1(piece)){
+						System.out.println("Your selection in invalid, please try again");
+						piece=input.next();
+					}
+					ChessBoard[drow][dcolumn]=piece;
+				}
+				else if(currentPlayer==2){
+					System.out.println("r, n, b, q");
+					String piece=input.next();
+					while(!isPlayer2(piece)){
+						System.out.println("Your selection in invalid, please try again");
+						piece=input.next();
+					}
+					ChessBoard[drow][dcolumn]=piece;
+				}
+				showBoard(ChessBoard);
+				turnCounter++;
+			}
 			int count=0;
 			for(int i=0; i<8; i++){
 				for (int j=0; j<8; j++){
@@ -87,6 +110,7 @@ public class Chess{
 					}
 				}
 			}
+			
 			if (count!=2)continuer="Game Over";
 			turnCounter++;
 			
@@ -427,6 +451,18 @@ public class Chess{
 		return checkmate;
 	}
 	
+	
+	public static boolean checkPawn(String board[][]){
+		boolean checker=false;
+		for(int r=0; r<8; r+=6){
+			for (int c=0; c<8; c++){
+				if (((board[r][c].equals("P"))&&(r==7))||((board[r][c].equals("p"))&&(r==0))){
+					checker=true;
+				}
+			}
+		}
+		return checker;
+	}
 	
 	
 	public static void movePiece(String chessBoard[][],int srow,int scolumn, int drow, int dcolumn){
