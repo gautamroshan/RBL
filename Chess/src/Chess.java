@@ -76,8 +76,6 @@ public class Chess{
 			//add undo move method
 			//very Important!
 			
-				
-			
 			showBoard(ChessBoard);
 			if(checkPawn(ChessBoard)){
 				System.out.println("Choose a Piece");
@@ -172,8 +170,8 @@ public class Chess{
 		//bugs encountered
 		boolean checker = false;
 		if((board[srow][scolumn].equals("P"))){
-			if((board[srow+1][scolumn].equals(" "))&&(drow==srow+1)&&( dcolumn==scolumn)){
-				checker = true;
+			if((drow==srow+1)&&( dcolumn==scolumn)){
+				if(board[srow+1][scolumn].equals(" "))checker = true;
 			}
 			else if(((srow+1)==drow) && ((scolumn-1)==dcolumn)){
 				if(isPlayer2(board[srow+1][scolumn-1]))checker=true;
@@ -186,8 +184,8 @@ public class Chess{
 			}
 		}
 		else if((board[srow][scolumn].equals("p"))){
-			if((board[srow-1][scolumn].equals(" "))&&(drow==srow-1)&&( dcolumn==scolumn)){
-				checker = true;
+			if((drow==srow-1)&&( dcolumn==scolumn)){
+				if(board[srow-1][scolumn].equals(" "))checker = true;
 				}
 			else if(((srow-1)==drow) && ((scolumn+1)==dcolumn)  ){
 				if(isPlayer1(board[srow-1][scolumn+1]))checker=true;
@@ -454,9 +452,9 @@ public class Chess{
 	
 	public static boolean checkPawn(String board[][]){
 		boolean checker=false;
-		for(int r=0; r<8; r+=6){
-			for (int c=0; c<8; c++){
-				if (((board[r][c].equals("P"))&&(r==7))||((board[r][c].equals("p"))&&(r==0))){
+		for (int i=7; i>=0; i-=7){
+			for (int j=0; j<8; j++){
+				if ((i==7&&board[i][j].equals("P"))||(i==0)&&(board[i][j].equals("p"))){
 					checker=true;
 				}
 			}
@@ -539,6 +537,4 @@ public class Chess{
 				+ "\nThen Type row and column separated by space and enter to move selected piece to desired place";
 		return set;
 	}
-
-		
 	}
