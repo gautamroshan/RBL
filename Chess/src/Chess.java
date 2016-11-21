@@ -1,5 +1,5 @@
-//Things to do.
-//Almost done,except for few bugs in pawn
+
+//Almost done
 
 import java.util.Scanner;
 public class Chess{
@@ -7,11 +7,6 @@ public class Chess{
 	
 	public static void main(String[]args){
 		String[][] ChessBoard = new String[8][8];
-		for(int i = 0; i<ChessBoard.length; i++){
-			for(int j = 0; j<ChessBoard.length; j++){
-				ChessBoard[i][j]=" ";
-			}
-		}
 		Scanner input = new Scanner(System.in);
 		System.out.println("Welcome to Chess! \nType and Enter:\n(i) for instruction,\n(s) for starting the game,\n(e) for exit:");
 		String command = input.nextLine();
@@ -34,7 +29,7 @@ public class Chess{
 		
 		int turnCounter=0;
 		int currentPlayer=1;
-		//Add turns for player1 and player2
+		// turns for player1 and player2
 	while(!continuer.equals("Game Over")){
 		if(turnCounter%2==0)currentPlayer=1; else  currentPlayer=2;
 		if(currentPlayer==1)System.out.println("Player 1"); else System.out.println("Player 2");
@@ -166,8 +161,6 @@ public class Chess{
 	
 	
 	public static boolean legalPawn(String board[][],int srow,int scolumn, int drow, int dcolumn){	
-		//search for ways to shorten the code
-		//bugs encountered
 		boolean checker = false;
 		if((board[srow][scolumn].equals("P"))){
 			if((drow==srow+1)&&( dcolumn==scolumn)){
@@ -203,7 +196,6 @@ public class Chess{
 	
 	
 	public static boolean legalRook(String board[][],int srow,int scolumn,int drow,int dcolumn){
-		//search for ways to shorten the code
 		boolean checker = false;
 		if(board[srow][scolumn].equals("R")||board[srow][scolumn].equals("r") ||board[srow][scolumn].equals("Q")||board[srow][scolumn].equals("q")){
 			int count=0;
@@ -344,7 +336,6 @@ public class Chess{
 	public static boolean legalBishop(String board[][],int srow,int scolumn,int drow,int dcolumn){
 	  boolean checker=false;
 	  if ((Math.abs(drow-srow)==Math.abs(scolumn-dcolumn))){
-		  //Added new line to debug
 		if(board[srow][scolumn].equals("B")||board[srow][scolumn].equals("b")||board[srow][scolumn].equals("Q")|| board[srow][scolumn].equals("q")){
 			int count=0;
 			if((srow>drow)&&(scolumn>dcolumn)){
@@ -471,44 +462,21 @@ public class Chess{
 	
 	
 	public static void starter(String chessBoard[][]){
-		String King1 = "K";
-		String King2 = "k";
-		String Queen1 = "Q";
-		String Queen2 ="q";
-		String[] Rook1 = {"R","R"};
-		String[] Rook2 = {"r","r"};
-		String[] Knight1 = {"N","N"};
-		String[] Knight2 = {"n","n"};
-		String[] Bishop1 = {"B","B"};
-		String[] Bishop2 = {"b","b"};
-		String[] Pawn1 = {"P","P","P","P","P","P","P","P"};
-		String[] Pawn2 = {"p","p","p","p","p","p","p","p"};
-		for (int i=0;i<chessBoard.length;i++){
-			chessBoard[1][i]=Pawn1[i];
-			chessBoard[6][i]=Pawn2[i];
-		}
-		for (int i=0; i<chessBoard.length;i+=7){
-			for(int j=0; j<2; j++){
-			chessBoard[0][i]=Rook1[j];
-			chessBoard[7][i]=Rook2[j];
+		String Initial [][] = {
+				{"R","N","B","K","Q","B","N","R"},
+				{"P","P","P","P","P","P","P","P"},
+				{" "," "," "," "," "," "," "," "},
+				{" "," "," "," "," "," "," "," "},
+				{" "," "," "," "," "," "," "," "},
+				{" "," "," "," "," "," "," "," "},
+				{"p","p","p","p","p","p","p","p"},
+				{"r","n","b","k","q","b","n","r"}
+		};
+		for (int i=0;i<8;i++){
+			for(int j=0;j<8;j++){
+				chessBoard[i][j]=Initial[i][j];
 			}
 		}
-		for (int i=0; i<chessBoard.length;i+=5){
-			for(int j=0; j<2; j++){
-		chessBoard[0][i+1]=Knight1[j];
-		chessBoard[7][i+1]=Knight2[j];
-			}
-		}
-		for (int i=0; i<6;i+=3){
-			for(int j=0; j<2; j++){
-		chessBoard[0][i+2]=Bishop1[j];
-		chessBoard[7][i+2]=Bishop2[j];
-			}
-		}
-			chessBoard[0][3]=King1;
-			chessBoard[7][3]=King2;
-			chessBoard[0][4]=Queen1;
-			chessBoard[7][4]=Queen2;
 	}
 	
 	
