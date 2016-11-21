@@ -1,4 +1,3 @@
-
 //Almost done
 
 import java.util.Scanner;
@@ -32,11 +31,13 @@ public class Chess{
 		// turns for player1 and player2
 	while(!continuer.equals("Game Over")){
 		if(turnCounter%2==0)currentPlayer=1; else  currentPlayer=2;
-		if(currentPlayer==1)System.out.println("Player 1"); else System.out.println("Player 2");
 		if(checkMate(ChessBoard))System.out.println("CheckMate!");
+		int srow,scolumn,drow,dcolumn;
+		do{
+			if(currentPlayer==1)System.out.println("Player 1"); else System.out.println("Player 2");
 		System.out.println("Enter row and column separated by a space to select a piece");
-		int srow = Integer.parseInt(input.next());
-		int scolumn = Integer.parseInt(input.next());
+		 srow = Integer.parseInt(input.next());
+		 scolumn = Integer.parseInt(input.next());
 		while(BlankCheck(ChessBoard[srow][scolumn])){
 			System.out.println("The selection is empty, please try again");
 			srow = Integer.parseInt(input.next());
@@ -60,17 +61,16 @@ public class Chess{
 		}
 		
 			System.out.println(ChessBoard[srow][scolumn]+" in ("+srow+","+scolumn+")"+" is selected\nEnter row and column to move this piece");
-			int drow = Integer.parseInt(input.next());
-			int dcolumn = Integer.parseInt(input.next());
+			 drow = Integer.parseInt(input.next());
+			 dcolumn = Integer.parseInt(input.next());
+		}while(srow==drow&&scolumn==dcolumn);
 			while (!checkMove(ChessBoard,srow,scolumn,drow,dcolumn)){
 				System.out.println("Illegal move! please try again");
 				drow = Integer.parseInt(input.next());
 				dcolumn = Integer.parseInt(input.next());
 			}
+	
 			movePiece(ChessBoard,srow,scolumn,drow,dcolumn);
-			//add undo move method
-			//very Important!
-			
 			showBoard(ChessBoard);
 			if(checkPawn(ChessBoard)){
 				System.out.println("Choose a Piece");
